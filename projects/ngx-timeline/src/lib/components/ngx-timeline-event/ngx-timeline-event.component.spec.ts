@@ -1,10 +1,10 @@
 import { registerLocaleData } from '@angular/common';
 import localeIt from '@angular/common/locales/it';
-import { ComponentRef } from '@angular/core';
+import { ComponentRef, provideZonelessChangeDetection } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { NgxTimelineItemPosition } from '../../models';
 
 import { NgxTimelineEventComponent } from './ngx-timeline-event.component';
-import { NgxTimelineItemPosition } from '../../models';
 
 registerLocaleData(localeIt);
 
@@ -32,18 +32,18 @@ describe('NgxTimelineEventComponent', () => {
   let component: NgxTimelineEventComponent;
   let componentRef: ComponentRef<NgxTimelineEventComponent>;
   let fixture: ComponentFixture<NgxTimelineEventComponent>;
+
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [NgxTimelineEventComponent],
+      providers: [provideZonelessChangeDetection()],
     }).compileComponents();
-  });
 
-  beforeEach(() => {
     fixture = TestBed.createComponent(NgxTimelineEventComponent);
     component = fixture.componentInstance;
     componentRef = fixture.componentRef;
     componentRef.setInput('event', event);
-    fixture.detectChanges();
+    await fixture.whenStable();
   });
 
   it('should create', () => {

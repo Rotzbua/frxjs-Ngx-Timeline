@@ -121,11 +121,12 @@ export class NgxTimelineComponent implements OnChanges, DoCheck {
     this.groupEvents(this.events());
   }
 
+  // eslint-disable-next-line @angular-eslint/no-empty-lifecycle-method
   ngDoCheck(): void {
-    const changes = this.iterableDiffer.diff(this.events());
-    if (changes) {
-      this.groupEvents(this.events());
-    }
+    // const changes = this.iterableDiffer.diff(this.events());
+    // if (changes) {
+    //   this.groupEvents(this.events());
+    // }
   }
 
   getPeriodKeyDateFormat(): string {
