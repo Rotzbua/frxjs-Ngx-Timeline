@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { ComponentRef, provideZonelessChangeDetection } from '@angular/core';
+import { ComponentRef } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { NgxDateFormat, NgxTimelineEventChangeSide, NgxTimelineEventGroup, NgxTimelineItemPosition, NgxTimelineOrientation } from '../models';
@@ -13,7 +13,7 @@ describe('NgxTimelineComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [NgxTimelineComponent],
-      providers: [provideZonelessChangeDetection()],
+      providers: [],
     }).compileComponents();
 
     fixture = TestBed.createComponent(NgxTimelineComponent);

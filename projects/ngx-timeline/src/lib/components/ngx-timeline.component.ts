@@ -223,7 +223,7 @@ export class NgxTimelineComponent implements OnChanges, DoCheck {
   }
 
   protected compareEventsField(prevEvent: NgxTimelineEvent, event: NgxTimelineEvent, ...fields: string[]): boolean {
-    return fields.reduce((res, field) => res = res || (prevEvent.timestamp[field as keyof Date] as () => number)() !== (event.timestamp[field as keyof Date] as () => number)(), false);
+    return fields.reduce((res, field) => res || (prevEvent.timestamp[field as keyof Date] as () => number)() !== (event.timestamp[field as keyof Date] as () => number)(), false);
   }
 
   protected getPeriodInfoFromPeriodKey(periodKey: string, firstGroupEvent: NgxTimelineEvent): NgxTimelinePeriodInfo {
