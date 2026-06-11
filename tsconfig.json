@@ -9,7 +9,7 @@
     "noImplicitReturns": true,
     "paths": {
       "ngx-timeline": [
-        "dist/ngx-timeline"
+        "./dist/ngx-timeline"
       ]
     },
     "noFallthroughCasesInSwitch": true,
@@ -19,7 +19,6 @@
     "importHelpers": true,
     "target": "ES2022",
     "module": "preserve",
-    "baseUrl": "./",
     "preserveSymlinks": true,
     "forceConsistentCasingInFileNames": true
   },
