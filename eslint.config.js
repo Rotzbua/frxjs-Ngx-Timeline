@@ -2,8 +2,8 @@
 import eslint from "@eslint/js";
 import tseslint from "typescript-eslint";
 import angular from "angular-eslint";
-import stylistic from '@stylistic/eslint-plugin'
-import vitest from '@vitest/eslint-plugin'
+import stylistic from "@stylistic/eslint-plugin"
+import vitest from "@vitest/eslint-plugin"
 
 export default tseslint.config(
   {
@@ -23,7 +23,7 @@ export default tseslint.config(
       // ...angular.configs.tsAll,
       stylistic.configs.customize({
         indent: 2,
-        quotes: 'single',
+        quotes: "single",
         semi: true,
         jsx: false,
       }),
