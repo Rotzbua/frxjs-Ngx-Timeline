@@ -41,6 +41,14 @@ describe('NgxTimelineComponent', () => {
     expect(spy).toHaveBeenCalled();
   });
 
+  it('should create with virtualScroll', () => {
+    fixture.componentRef.setInput('virtualScroll', true);
+    component.events().push({ timestamp: new Date() });
+    addingItems(component);
+    fixture.detectChanges();
+    expect(component.virtualScroll()).toBe(true);
+  });
+
   it('should clear', () => {
     // @ts-expect-error TS2445
     component.clear();
@@ -162,16 +170,7 @@ describe('NgxTimelineComponent', () => {
 
   describe('should setItems', () => {
     it('when events', () => {
-      const period = { periodInfo: { periodKey: '2021/7' } };
-      const period2 = { periodInfo: { periodKey: '2021/8' } };
-      component.periods = [period, period2];
-      const event = { timestamp: new Date(2021, 7, 10) };
-      const event2 = { timestamp: new Date(2021, 8, 10) };
-      const event3 = { timestamp: new Date(2021, 8, 11) };
-      component.groups['2021/7'] = [event];
-      component.groups['2021/8'] = [event2, event3];
-      // @ts-expect-error TS2445
-      component.setItems();
+      addingItems(component);
       expect(component.items.length).toEqual(5);
     });
     it('when events and changeSide is set to NgxTimelineEventChangeSide.ALL', () => {
@@ -257,3 +256,16 @@ describe('NgxTimelineComponent', () => {
     });
   });
 });
+
+function addingItems(component: NgxTimelineComponent) {
+  const period = { periodInfo: { periodKey: '2021/7' } };
+  const period2 = { periodInfo: { periodKey: '2021/8' } };
+  component.periods = [period, period2];
+  const event = { timestamp: new Date(2021, 7, 10) };
+  const event2 = { timestamp: new Date(2021, 8, 10) };
+  const event3 = { timestamp: new Date(2021, 8, 11) };
+  component.groups['2021/7'] = [event];
+  component.groups['2021/8'] = [event2, event3];
+  // @ts-expect-error TS2445
+  component.setItems();
+}
