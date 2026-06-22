@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { ComponentRef, provideZonelessChangeDetection } from '@angular/core';
+import { ComponentRef } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { NgxDateFormat, NgxTimelineEventChangeSide, NgxTimelineEventGroup, NgxTimelineItemPosition, NgxTimelineOrientation } from '../models';
@@ -13,7 +13,7 @@ describe('NgxTimelineComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [NgxTimelineComponent],
-      providers: [provideZonelessChangeDetection()],
+      providers: [],
     }).compileComponents();
 
     fixture = TestBed.createComponent(NgxTimelineComponent);
@@ -39,6 +39,14 @@ describe('NgxTimelineComponent', () => {
     component.events().push({ timestamp: new Date() });
     fixture.detectChanges();
     expect(spy).toHaveBeenCalled();
+  });
+
+  it('should create with virtualScroll', () => {
+    fixture.componentRef.setInput('virtualScroll', true);
+    component.events().push({ timestamp: new Date() });
+    addingItems(component);
+    fixture.detectChanges();
+    expect(component.virtualScroll()).toBe(true);
   });
 
   it('should clear', () => {
@@ -162,16 +170,7 @@ describe('NgxTimelineComponent', () => {
 
   describe('should setItems', () => {
     it('when events', () => {
-      const period = { periodInfo: { periodKey: '2021/7' } };
-      const period2 = { periodInfo: { periodKey: '2021/8' } };
-      component.periods = [period, period2];
-      const event = { timestamp: new Date(2021, 7, 10) };
-      const event2 = { timestamp: new Date(2021, 8, 10) };
-      const event3 = { timestamp: new Date(2021, 8, 11) };
-      component.groups['2021/7'] = [event];
-      component.groups['2021/8'] = [event2, event3];
-      // @ts-expect-error TS2445
-      component.setItems();
+      addingItems(component);
       expect(component.items.length).toEqual(5);
     });
     it('when events and changeSide is set to NgxTimelineEventChangeSide.ALL', () => {
@@ -257,3 +256,16 @@ describe('NgxTimelineComponent', () => {
     });
   });
 });
+
+function addingItems(component: NgxTimelineComponent) {
+  const period = { periodInfo: { periodKey: '2021/7' } };
+  const period2 = { periodInfo: { periodKey: '2021/8' } };
+  component.periods = [period, period2];
+  const event = { timestamp: new Date(2021, 7, 10) };
+  const event2 = { timestamp: new Date(2021, 8, 10) };
+  const event3 = { timestamp: new Date(2021, 8, 11) };
+  component.groups['2021/7'] = [event];
+  component.groups['2021/8'] = [event2, event3];
+  // @ts-expect-error TS2445
+  component.setItems();
+}
