@@ -18,10 +18,10 @@ import { NgxDateFormat, NgxTimelineEvent, NgxTimelineEventChangeSide, NgxTimelin
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AppComponent {
-  title = 'demo-app';
-  readonly events = signal<NgxTimelineEvent[]>([]);
   form: UntypedFormGroup;
   ngxDateFormat: typeof NgxDateFormat = NgxDateFormat;
+
+  readonly events = signal<NgxTimelineEvent[]>([]);
   readonly virtualScrollItemSize = signal<number>(160);
   readonly virtualScrollMaxBufferPx = signal<number>(2160);
   readonly virtualScrollMinBufferPx = signal<number>(1080);
@@ -225,9 +225,6 @@ export class AppComponent {
     const today = new Date();
     const tomorrow = new Date();
     tomorrow.setDate(today.getDate() + 1);
-    const tomorrowPlusOneHour = new Date();
-    tomorrowPlusOneHour.setDate(today.getDate() + 1);
-    tomorrowPlusOneHour.setHours(today.getHours() + 1);
     const nextMonth = new Date();
     nextMonth.setMonth(today.getMonth() + 1);
     const nextYear = new Date();
