@@ -1,5 +1,5 @@
-<div [ngClass]="virtualScroll() ? 'virtual-scroll-container' : 'main-container'">
-  @if (virtualScroll()) {
+@if (virtualScroll()) {
+  <div class="virtual-scroll-container">
     <cdk-virtual-scroll-viewport
       class="items-container"
       [class.horizontal]="orientation() === ngxTimelineOrientation.HORIZONTAL"
@@ -14,7 +14,9 @@
         ></ng-template>
       </div>
     </cdk-virtual-scroll-viewport>
-  } @else {
+  </div>
+} @else {
+  <div class="main-container">
     <div class="items-container" [class.horizontal]="orientation() === ngxTimelineOrientation.HORIZONTAL">
       @for (item of items; track item; let index = $index) {
         <ng-template
@@ -22,8 +24,8 @@
         ></ng-template>
       }
     </div>
-  }
-</div>
+  </div>
+}
 
 <ng-template #rowTemplate let-item="item" let-index="index">
   <div class="row">
